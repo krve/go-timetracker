@@ -22,12 +22,12 @@ func main() {
 	app.Name = "Time Tracker CLI"
 	app.Version = "0.0.1"
 	app.Usage = "Track time spent on different things"
-	app.Flags = []cli.Flag{
-		cli.BoolFlag{
-			Name:  "cli",
-			Usage: "use CLI to stop the timer",
-		},
-	}
+	// app.Flags = []cli.Flag{
+	// 	cli.BoolFlag{
+	// 		Name:  "cli",
+	// 		Usage: "use CLI to stop the timer",
+	// 	},
+	// }
 	app.Commands = []cli.Command{
 		{
 			Name:    "list",
@@ -91,7 +91,7 @@ func main() {
 	}
 
 	app.Action = func(c *cli.Context) error {
-		createEntry(c.Bool("cli"))
+		createEntry()
 
 		return nil
 	}
@@ -114,20 +114,15 @@ func listEntries() {
 	}
 }
 
-func createEntry(useCLI bool) {
+func createEntry() {
 	start := time.Now()
 
 	description := AwaitInput("Enter a description and press enter to start time tracking:")
 	var entryDuration time.Duration
 
-	if useCLI {
-		fmt.Println("Press \"enter\" to finish tracking time.")
-		bufio.NewReader(os.Stdin).ReadBytes('\n')
-		entryDuration = time.Since(start)
-	} else {
-		fmt.Println("Started time tracking. Stop by using the tray icon.")
-		entryDuration = StartSysTray()
-	}
+	fmt.Println("Press \"enter\" to finish tracking time.")
+	bufio.NewReader(os.Stdin).ReadBytes('\n')
+	entryDuration = time.Since(start)
 
 	description = strings.TrimSuffix(description, "\n")
 	end := time.Now()
