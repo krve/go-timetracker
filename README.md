@@ -18,7 +18,6 @@ Track time. Specify a description and hit enter to start tracking time.
 ```
 ./timetracker
 ```
-You can add the flag `--cli` to not use the tray for stopping the time and instead use the command line.
 
 **List**  
 List all saved entries
