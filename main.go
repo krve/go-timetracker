@@ -34,7 +34,7 @@ func main() {
 			Aliases: []string{"l"},
 			Usage:   "show the list of entries",
 			Action: func(c *cli.Context) error {
-				listEntries()
+				Data.ListEntries()
 
 				return nil
 			},
@@ -102,15 +102,6 @@ func main() {
 
 	if err != nil {
 		log.Fatal(err)
-	}
-}
-
-func listEntries() {
-	var entries = Data.Entries
-
-	for _, entry := range entries {
-		entry.Print()
-		fmt.Println("---")
 	}
 }
 

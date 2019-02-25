@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"path/filepath"
@@ -19,6 +20,14 @@ type SaveData struct {
 // SetEntries sets the entries on the save
 func (data *SaveData) SetEntries(entries []TimeEntry) {
 	data.Entries = entries
+}
+
+// ListEntries lists all the entries in the terminal
+func (data *SaveData) ListEntries() {
+	for _, entry := range data.Entries {
+		entry.Print()
+		fmt.Println("---")
+	}
 }
 
 // ClearEntries clears all entries from the save
