@@ -11,26 +11,26 @@ go build
 
 ## Usage
 
-**Tracking time**
+**Tracking time**  
 Track time. Specify a description and hit enter to start tracking time.
 ```
 ./timetracker
 ```
 You can add the flag `--cli` to not use the tray for stopping the time and instead use the command line.
 
-**List**
+**List**  
 List all saved entries
 ```
 ./timetracker list
 ```
 
-**Clear**
+**Clear**  
 Clear all saved entries
 ```
 ./timetracker clear
 ```
 
-**Delete**
+**Delete**  
 Delete the entry with the specified ID
 ```
 ./timetracker delete [ID]
