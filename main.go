@@ -129,7 +129,7 @@ func createEntry() {
 	description = strings.TrimSuffix(description, "\n")
 	end := time.Now()
 
-	var entry = TimeEntry{
+	entry := &TimeEntry{
 		ID:          (getLatestID() + 1),
 		Description: description,
 		Duration:    time.Since(start),
@@ -138,7 +138,7 @@ func createEntry() {
 	}
 	entry.Print()
 
-	Data.SetEntries(append(Data.Entries, entry))
+	Data.SetEntries(append(Data.Entries, *entry))
 	Data.Save()
 }
 
