@@ -21,6 +21,6 @@ func (entry TimeEntry) Print() {
 	fmt.Println("ID: \t\t", entry.ID)
 	fmt.Println("Description: \t", entry.Description)
 	fmt.Println("Duration: \t", durafmt.Parse(entry.Duration).String())
-	fmt.Println("Start time: \t", entry.StartTime)
-	fmt.Println("End time: \t", entry.EndTime)
+	// fmt.Println("Start time: \t", entry.StartTime)
+	// fmt.Println("End time: \t", entry.EndTime)
 }

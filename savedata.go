@@ -42,6 +42,17 @@ func (data *SaveData) DeleteEntry(ID int) bool {
 	return false
 }
 
+// GetLatestEntryID fetches the latest ID used
+func (data *SaveData) GetLatestEntryID() int {
+	entries := data.Entries
+
+	if len(entries) == 0 {
+		return 0
+	}
+
+	return entries[len(entries)-1].ID
+}
+
 // Load loads the data from the save file
 func (data *SaveData) Load() {
 	*data = LoadSaveDataFromFile()
@@ -68,7 +79,6 @@ func LoadSaveDataFromFile() SaveData {
 // SaveDataToFile saves the input struct to the specified save file
 func SaveDataToFile(save SaveData) {
 	log.Println("Saving data to file")
-	log.Println(save)
 
 	saveJSON, _ := json.Marshal(save)
 

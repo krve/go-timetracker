@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strconv"
 	"strings"
 )
 
@@ -31,4 +32,26 @@ func AskForConfirmation(s string) bool {
 			return false
 		}
 	}
+}
+
+// AwaitInput waits for the user to input something and then returns the input
+func AwaitInput(description string) string {
+	fmt.Println(description)
+
+	buf := bufio.NewReader(os.Stdin)
+	fmt.Print("> ")
+	sentence, err := buf.ReadBytes('\n')
+
+	if err != nil {
+		log.Fatal(err)
+		os.Exit(0)
+	}
+
+	return strings.TrimSuffix(string(sentence), "\n")
+}
+
+// ItoaTwoDigits time.Clock returns one digit on values, so we make sure to convert to two digits
+func ItoaTwoDigits(i int) string {
+	b := "0" + strconv.Itoa(i)
+	return b[len(b)-2:]
 }

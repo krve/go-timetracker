@@ -22,6 +22,12 @@ func main() {
 	app.Name = "Time Tracker CLI"
 	app.Version = "0.0.1"
 	app.Usage = "Track time spent on different things"
+	app.Flags = []cli.Flag{
+		cli.BoolFlag{
+			Name:  "cli",
+			Usage: "use CLI to stop the timer",
+		},
+	}
 	app.Commands = []cli.Command{
 		{
 			Name:    "list",
@@ -85,7 +91,7 @@ func main() {
 	}
 
 	app.Action = func(c *cli.Context) error {
-		createEntry()
+		createEntry(c.Bool("cli"))
 
 		return nil
 	}
@@ -108,31 +114,28 @@ func listEntries() {
 	}
 }
 
-func createEntry() {
+func createEntry(useCLI bool) {
 	start := time.Now()
 
-	fmt.Println("Enter a description and press enter to start time tracking:")
-	buf := bufio.NewReader(os.Stdin)
-	fmt.Print("> ")
-	sentence, err := buf.ReadBytes('\n')
+	description := AwaitInput("Enter a description and press enter to start time tracking:")
+	var entryDuration time.Duration
 
-	if err != nil {
-		log.Fatal(err)
-		os.Exit(0)
+	if useCLI {
+		fmt.Println("Press \"enter\" to finish tracking time.")
+		bufio.NewReader(os.Stdin).ReadBytes('\n')
+		entryDuration = time.Since(start)
+	} else {
+		fmt.Println("Started time tracking. Stop by using the tray icon.")
+		entryDuration = StartSysTray()
 	}
-
-	description := string(sentence)
-
-	fmt.Println("Press \"enter\" to finish tracking time.")
-	bufio.NewReader(os.Stdin).ReadBytes('\n')
 
 	description = strings.TrimSuffix(description, "\n")
 	end := time.Now()
 
 	entry := &TimeEntry{
-		ID:          (getLatestID() + 1),
+		ID:          (Data.GetLatestEntryID() + 1),
 		Description: description,
-		Duration:    time.Since(start),
+		Duration:    entryDuration,
 		StartTime:   start,
 		EndTime:     end,
 	}
@@ -140,14 +143,4 @@ func createEntry() {
 
 	Data.SetEntries(append(Data.Entries, *entry))
 	Data.Save()
-}
-
-func getLatestID() int {
-	entries := Data.Entries
-
-	if len(entries) == 0 {
-		return 0
-	}
-
-	return entries[len(entries)-1].ID
 }
