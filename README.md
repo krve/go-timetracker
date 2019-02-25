@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/krve/go-timetracker.svg?style=svg)](https://circleci.com/gh/krve/go-timetracker)
+
 # Timetracker
 This is a timetracker CLI app I am currently building to learn Go.
 
