@@ -1,0 +1,12 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/golang:1.8
+
+    working_directory: /go/src/github.com/krve/go-timetracker
+
+    steps:
+      - checkout
+      - run: go get
+      - run: go test
