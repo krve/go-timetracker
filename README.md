@@ -37,6 +37,11 @@ Delete the entry with the specified ID
 ./timetracker delete [ID]
 ```
 
+**Reindex**  
+Reindex all entries
+```
+./timetracker reindex
+
 ## Testing
 ```
 git clone git@github.com:krve/go-timetracker.git
