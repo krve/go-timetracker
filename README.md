@@ -41,6 +41,7 @@ Delete the entry with the specified ID
 Reindex all entries
 ```
 ./timetracker reindex
+```
 
 ## Testing
 ```
