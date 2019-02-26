@@ -62,6 +62,24 @@ func main() {
 			},
 		},
 		{
+			Name:  "reindex",
+			Usage: "reindex all entires",
+			Action: func(c *cli.Context) error {
+				confirm := AskForConfirmation("Are you sure you want to reindex all entries?")
+
+				if confirm {
+					for index, el := range Data.Entries {
+						el.ID = (index + 1)
+						Data.Entries[index] = el
+					}
+					Data.Save()
+					fmt.Println("All entries have been reindexed")
+				}
+
+				return nil
+			},
+		},
+		{
 			Name:  "delete",
 			Usage: "delete the entry with the specified id",
 			Action: func(c *cli.Context) error {
