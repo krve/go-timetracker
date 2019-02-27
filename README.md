@@ -12,35 +12,20 @@ go build
 ```
 
 ## Usage
+```
+USAGE:
+   timetracker [global options] command [command options] [arguments...]
 
-**Tracking time**  
-Track time. Specify a description and hit enter to start tracking time.
-```
-./timetracker
-```
+COMMANDS:
+     list, l  show the list of entries
+     clear    clear all entries
+     reindex  reindex all entires
+     delete   delete the entry with the specified id
+     help, h  Shows a list of commands or help for one command
 
-**List**  
-List all saved entries
-```
-./timetracker list
-```
-
-**Clear**  
-Clear all saved entries
-```
-./timetracker clear
-```
-
-**Delete**  
-Delete the entry with the specified ID
-```
-./timetracker delete [ID]
-```
-
-**Reindex**  
-Reindex all entries
-```
-./timetracker reindex
+GLOBAL OPTIONS:
+   --help, -h     show help
+   --version, -v  print the version
 ```
 
 ## Testing
