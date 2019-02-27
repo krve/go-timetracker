@@ -20,6 +20,7 @@ COMMANDS:
      list, l  show the list of entries
      clear    clear all entries
      reindex  reindex all entires
+     sum      sum all entires
      delete   delete the entry with the specified id
      help, h  Shows a list of commands or help for one command
 

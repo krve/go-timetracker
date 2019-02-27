@@ -9,6 +9,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/hako/durafmt"
 	"github.com/urfave/cli"
 )
 
@@ -77,6 +78,33 @@ func main() {
 				}
 
 				return nil
+			},
+		},
+		{
+			Name:  "sum",
+			Usage: "sum all entires",
+			Action: func(c *cli.Context) error {
+				filter := strings.ToLower(c.String("filter"))
+
+				var sum time.Duration
+
+				for _, el := range Data.Entries {
+					if filter != "" && strings.Contains(strings.ToLower(el.Description), filter) == false {
+						continue
+					}
+
+					sum += el.Duration
+				}
+
+				fmt.Printf("Total time spent: %s\n", durafmt.Parse(sum).String())
+
+				return nil
+			},
+			Flags: []cli.Flag{
+				cli.StringFlag{
+					Name:  "filter",
+					Usage: "filter the entries that should be summed",
+				},
 			},
 		},
 		{
