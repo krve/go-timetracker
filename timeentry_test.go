@@ -1,5 +1,7 @@
 package main
 
+import "time"
+
 type Mock struct {
 	logged []string
 }
@@ -9,10 +11,10 @@ func (m *Mock) Println(v ...interface{}) {
 }
 
 func ExamplePrint() {
-	entry := TimeEntry{Description: "Foobar", ID: 5, Duration: 1000000000}
+	entry := TimeEntry{Description: "Foobar", ID: 5, Duration: time.Minute}
 	entry.Print()
 	// Output:
 	// ID: 		 5
 	// Description: 	 Foobar
-	// Duration: 	 1 second
+	// Duration: 	 1 minutes
 }
