@@ -9,7 +9,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/hako/durafmt"
 	"github.com/urfave/cli"
 )
 
@@ -96,7 +95,7 @@ func main() {
 					sum += el.Duration
 				}
 
-				fmt.Printf("Total time spent: %s\n", durafmt.Parse(sum).String())
+				fmt.Printf("Total time spent: %s\n", FormatDuration(sum))
 
 				return nil
 			},

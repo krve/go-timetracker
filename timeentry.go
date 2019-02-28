@@ -3,8 +3,6 @@ package main
 import (
 	"fmt"
 	"time"
-
-	"github.com/hako/durafmt"
 )
 
 // TimeEntry : An entry of time
@@ -20,7 +18,7 @@ type TimeEntry struct {
 func (entry TimeEntry) Print() {
 	fmt.Println("ID: \t\t", entry.ID)
 	fmt.Println("Description: \t", entry.Description)
-	fmt.Println("Duration: \t", durafmt.Parse(entry.Duration).String())
+	fmt.Println("Duration: \t", FormatDuration(entry.Duration))
 	// fmt.Println("Start time: \t", entry.StartTime)
 	// fmt.Println("End time: \t", entry.EndTime)
 }

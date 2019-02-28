@@ -2,10 +2,13 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"log"
+	"os"
 	"path/filepath"
+	"strconv"
+
+	"github.com/olekukonko/tablewriter"
 )
 
 var (
@@ -24,10 +27,25 @@ func (data *SaveData) SetEntries(entries []TimeEntry) {
 
 // ListEntries lists all the entries in the terminal
 func (data *SaveData) ListEntries() {
+	var tableData [][]string
+
 	for _, entry := range data.Entries {
-		entry.Print()
-		fmt.Println("---")
+		tableData = append(tableData, []string{
+			strconv.Itoa(entry.ID),
+			entry.Description,
+			FormatDuration(entry.Duration),
+		})
+
+		FormatDuration(entry.Duration)
 	}
+
+	table := tablewriter.NewWriter(os.Stdout)
+	table.SetHeader([]string{"ID", "Description", "Duration"})
+	table.SetBorder(false)
+	table.SetRowSeparator("-")
+	table.SetRowLine(true)
+	table.AppendBulk(tableData)
+	table.Render()
 }
 
 // ClearEntries clears all entries from the save

@@ -63,23 +63,3 @@ func TestGetLatestEntryID(t *testing.T) {
 		}
 	}
 }
-
-func ExampleListEntries() {
-	data := SaveData{
-		Entries: []TimeEntry{
-			TimeEntry{ID: 1, Description: "Foo"},
-			TimeEntry{ID: 2, Description: "Bar"},
-		},
-	}
-
-	data.ListEntries()
-	// Output:
-	// ID: 		 1
-	// Description: 	 Foo
-	// Duration: 	 0 seconds
-	// ---
-	// ID: 		 2
-	// Description: 	 Bar
-	// Duration: 	 0 seconds
-	// ---
-}

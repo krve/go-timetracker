@@ -4,9 +4,11 @@ import (
 	"bufio"
 	"fmt"
 	"log"
+	"math"
 	"os"
 	"strconv"
 	"strings"
+	"time"
 )
 
 // AskForConfirmation asks the user for confirmation. A user must type in "yes" or "no" and
@@ -54,4 +56,21 @@ func AwaitInput(description string) string {
 func ItoaTwoDigits(i int) string {
 	b := "0" + strconv.Itoa(i)
 	return b[len(b)-2:]
+}
+
+// FormatDuration formats the duration into hours and minutes
+func FormatDuration(d time.Duration) string {
+	hoursRaw := math.Floor(d.Minutes() / 60)
+	minutesRaw := math.Mod(d.Minutes(), 60)
+
+	hours := int(math.Round(hoursRaw))
+	minutes := int(math.Round(minutesRaw))
+
+	if hours > 0 && minutes > 0 {
+		return fmt.Sprintf("%d hours %d minutes", hours, minutes)
+	} else if hours > 0 && minutes == 0 {
+		return fmt.Sprintf("%d hours", hours)
+	}
+
+	return fmt.Sprintf("%d minutes", minutes)
 }
