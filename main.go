@@ -34,17 +34,18 @@ func main() {
 			Aliases: []string{"l"},
 			Usage:   "show the list of entries",
 			Action: func(c *cli.Context) error {
-				Data.ListEntries()
+				filter := strings.ToLower(c.String("filter"))
+
+				Data.ListEntries(filter)
 
 				return nil
 			},
-			// Flags: []cli.Flag{
-			// 	cli.StringFlag{
-			// 		Name:  "lang",
-			// 		Value: "english",
-			// 		Usage: "language for the greeting",
-			// 	},
-			// },
+			Flags: []cli.Flag{
+				cli.StringFlag{
+					Name:  "filter",
+					Usage: "filter the entries that should be summed",
+				},
+			},
 		},
 		{
 			Name:  "clear",

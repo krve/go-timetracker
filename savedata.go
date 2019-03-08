@@ -7,6 +7,7 @@ import (
 	"os"
 	"path/filepath"
 	"strconv"
+	"strings"
 
 	"github.com/olekukonko/tablewriter"
 )
@@ -26,17 +27,19 @@ func (data *SaveData) SetEntries(entries []TimeEntry) {
 }
 
 // ListEntries lists all the entries in the terminal
-func (data *SaveData) ListEntries() {
+func (data *SaveData) ListEntries(filter string) {
 	var tableData [][]string
 
 	for _, entry := range data.Entries {
+		if filter != "" && strings.Contains(strings.ToLower(entry.Description), filter) == false {
+			continue
+		}
+
 		tableData = append(tableData, []string{
 			strconv.Itoa(entry.ID),
 			entry.Description,
 			FormatDuration(entry.Duration),
 		})
-
-		FormatDuration(entry.Duration)
 	}
 
 	table := tablewriter.NewWriter(os.Stdout)
