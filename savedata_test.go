@@ -19,16 +19,65 @@ func TestSetEntries(t *testing.T) {
 }
 
 func TestClearEntries(t *testing.T) {
-	data := SaveData{
-		Entries: []TimeEntry{
-			TimeEntry{ID: 1},
+	tables := []struct {
+		x SaveData
+		y string
+		z int
+	}{
+		{
+			SaveData{
+				Entries: []TimeEntry{
+					TimeEntry{Description: "foo"},
+					TimeEntry{Description: "bar"},
+					TimeEntry{Description: "foobar"},
+				},
+			},
+			"foo",
+			1,
+		},
+		{
+			SaveData{
+				Entries: []TimeEntry{
+					TimeEntry{Description: "foo was here"},
+					TimeEntry{Description: "foockin"},
+					TimeEntry{Description: "barfood"},
+				},
+			},
+			"foo",
+			0,
+		},
+		{
+			SaveData{
+				Entries: []TimeEntry{
+					TimeEntry{Description: "foo was here"},
+					TimeEntry{Description: "foockin"},
+					TimeEntry{Description: "barfood"},
+				},
+			},
+			"",
+			0,
+		},
+		{
+			SaveData{
+				Entries: []TimeEntry{
+					TimeEntry{Description: "foo was here"},
+					TimeEntry{Description: "foockin"},
+					TimeEntry{Description: "no food here"},
+				},
+			},
+			"bar",
+			3,
 		},
 	}
 
-	data.ClearEntries()
+	for _, table := range tables {
+		table.x.ClearEntries(table.y)
 
-	if len(data.Entries) != 0 {
-		t.Errorf("The result was incorrect, the length of the array was %d, expected %d", len(data.Entries), 0)
+		result := len(table.x.Entries)
+
+		if result != table.z {
+			t.Errorf("The result was incorrect, the length of the array was %d, expected %d.", result, table.z)
+		}
 	}
 }
 

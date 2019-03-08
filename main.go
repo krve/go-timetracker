@@ -51,15 +51,28 @@ func main() {
 			Name:  "clear",
 			Usage: "clear all entries",
 			Action: func(c *cli.Context) error {
-				confirm := AskForConfirmation("Are you sure you want to erase all current entries?")
+				filter := strings.ToLower(c.String("filter"))
+				confirm := false
+
+				if filter != "" {
+					confirm = AskForConfirmation(fmt.Sprintf("Are you sure you want to erase all entries that matches the filter \"%s\"?", filter))
+				} else {
+					confirm = AskForConfirmation("Are you sure you want to erase all current entries?")
+				}
 
 				if confirm {
-					Data.ClearEntries()
+					Data.ClearEntries(filter)
 					Data.Save()
 					fmt.Println("Cleared all entries")
 				}
 
 				return nil
+			},
+			Flags: []cli.Flag{
+				cli.StringFlag{
+					Name:  "filter",
+					Usage: "filter the entries that should be summed",
+				},
 			},
 		},
 		{

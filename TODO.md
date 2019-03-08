@@ -1,3 +1,3 @@
-- [ ] Allow clearing using a filter
+- [x] Allow clearing using a filter
 - [x] Find a better view for showing the entires - perhaps some sort of table?
 - [x] Strip milliseconds from the duration when displaying

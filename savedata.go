@@ -52,8 +52,27 @@ func (data *SaveData) ListEntries(filter string) {
 }
 
 // ClearEntries clears all entries from the save
-func (data *SaveData) ClearEntries() {
-	data.Entries = nil
+func (data *SaveData) ClearEntries(filter string) {
+	if filter == "" {
+		data.Entries = nil
+
+		return
+	}
+
+	entries := data.Entries
+
+	for i := 0; i < len(entries); i++ {
+		if filter != "" && strings.Contains(strings.ToLower(entries[i].Description), filter) == false {
+			continue
+		}
+
+		entries = append(entries[:i], entries[i+1:]...)
+
+		// Since we just deleted the index, we must redo it
+		i--
+	}
+
+	data.SetEntries(entries)
 }
 
 // DeleteEntry deletes the entry with the specified id
