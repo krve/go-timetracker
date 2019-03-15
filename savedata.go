@@ -39,11 +39,12 @@ func (data *SaveData) ListEntries(filter string) {
 			strconv.Itoa(entry.ID),
 			entry.Description,
 			FormatDuration(entry.Duration),
+			entry.StartTime.Format("2006-01-02 15:04:05"),
 		})
 	}
 
 	table := tablewriter.NewWriter(os.Stdout)
-	table.SetHeader([]string{"ID", "Description", "Duration"})
+	table.SetHeader([]string{"ID", "Description", "Duration", "Date"})
 	table.SetBorder(false)
 	table.SetRowSeparator("-")
 	table.SetRowLine(true)
